@@ -35,8 +35,8 @@ function StatItem({ end, suffix, label, inView }: StatItemProps) {
   return (
     <div className="text-center px-8 py-6">
       <div className="text-4xl sm:text-5xl font-bold text-white">
-        {suffix === "/7" ? "24/7" : suffix === " Min" ? "<5 Min" : count.toLocaleString()}
-        {suffix !== "/7" && suffix !== " Min" && suffix}
+        {suffix === "/7" ? "24/7" : suffix === " Min" ? "<5 Min" : suffix === "✓" ? "✓" : count.toLocaleString()}
+        {suffix !== "/7" && suffix !== " Min" && suffix !== "✓" && suffix}
       </div>
       <div className="mt-2 text-sm text-[#94A3B8]">{label}</div>
     </div>
@@ -47,6 +47,7 @@ const stats = [
   { end: 4, suffix: "", label: "Outbound Channels" },
   { end: 24, suffix: "/7", label: "Automation" },
   { end: 5, suffix: " Min", label: "Response Time" },
+  { end: 0, suffix: "✓", label: "Clients Booked Daily" },
 ];
 
 export default function Stats() {
