@@ -10,34 +10,34 @@ interface Slot {
 
 const schedule: Record<string, Slot[]> = {
   Mon: [
-    { time: "9:00", status: "booked", label: "Discovery Call — James R." },
-    { time: "10:30", status: "booked", label: "Strategy Call — Sarah M." },
-    { time: "1:00", status: "available" },
-    { time: "3:00", status: "booked", label: "Onboarding — TechFlow Inc." },
-  ],
-  Tue: [
-    { time: "9:00", status: "booked", label: "Pipeline Review — Mark D." },
-    { time: "10:30", status: "available" },
-    { time: "1:00", status: "booked", label: "Demo Call — Lisa K." },
-    { time: "3:00", status: "booked", label: "Strategy Call — David W." },
-  ],
-  Wed: [
-    { time: "9:00", status: "booked", label: "Discovery Call — Amy T." },
-    { time: "10:30", status: "booked", label: "Kickoff — Nova Labs" },
-    { time: "1:00", status: "booked", label: "Check-in — Ryan P." },
+    { time: "9:00", status: "booked", label: "James R. — Kitchen Remodel" },
+    { time: "10:30", status: "booked", label: "Sarah M. — Roof Estimate" },
+    { time: "1:00", status: "booked", label: "Mark T. — Solar Install" },
     { time: "3:00", status: "available" },
   ],
+  Tue: [
+    { time: "9:00", status: "booked", label: "David W. — HVAC Service" },
+    { time: "10:30", status: "booked", label: "Lisa K. — Foundation Repair" },
+    { time: "1:00", status: "available" },
+    { time: "3:00", status: "booked", label: "Chris B. — Fence Build" },
+  ],
+  Wed: [
+    { time: "9:00", status: "booked", label: "Amy T. — Bathroom Reno" },
+    { time: "10:30", status: "booked", label: "Ryan P. — Window Replace" },
+    { time: "1:00", status: "booked", label: "Tom H. — Plumbing Job" },
+    { time: "3:00", status: "booked", label: "Nina S. — Deck Build" },
+  ],
   Thu: [
-    { time: "9:00", status: "available" },
-    { time: "10:30", status: "booked", label: "Strategy Call — Emma J." },
-    { time: "1:00", status: "booked", label: "Demo Call — Chris B." },
-    { time: "3:00", status: "booked", label: "Onboarding — ScaleUp Co." },
+    { time: "9:00", status: "booked", label: "Emma J. — Roof Repair" },
+    { time: "10:30", status: "available" },
+    { time: "1:00", status: "booked", label: "Alex M. — Siding Job" },
+    { time: "3:00", status: "booked", label: "Jen L. — Painting Quote" },
   ],
   Fri: [
-    { time: "9:00", status: "booked", label: "Discovery Call — Nina S." },
-    { time: "10:30", status: "booked", label: "Pipeline Review — Tom H." },
-    { time: "1:00", status: "booked", label: "Strategy Call — Jen L." },
-    { time: "3:00", status: "booked", label: "Wrap-up — Alex M." },
+    { time: "9:00", status: "booked", label: "Mike D. — Driveway Pour" },
+    { time: "10:30", status: "booked", label: "Karen W. — Landscaping" },
+    { time: "1:00", status: "booked", label: "Steve R. — Garage Build" },
+    { time: "3:00", status: "booked", label: "Rachel P. — Pool Install" },
   ],
 };
 
@@ -89,8 +89,8 @@ export default function CalendarMockup() {
 
       {/* Footer */}
       <div className="mt-4 flex items-center justify-between text-[10px] text-[#94A3B8]">
-        <span>16 of 20 slots booked</span>
-        <span className="text-[#3B82F6]">80% capacity</span>
+        <span>17 of 20 slots booked</span>
+        <span className="text-[#3B82F6]">85% capacity</span>
       </div>
     </div>
   );
