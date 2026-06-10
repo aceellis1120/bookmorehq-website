@@ -1,0 +1,25 @@
+name: Hourly paid client sync
+
+on:
+  schedule:
+    - cron: "7 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Sync paid clients and provision completed onboarding
+        env:
+          CRON_SECRET: ${{ secrets.BOOKMOREHQ_CRON_SECRET }}
+        run: |
+          curl --fail-with-body \
+            --retry 3 \
+            --retry-all-errors \
+            --max-time 240 \
+            --header "Authorization: Bearer ${CRON_SECRET}" \
+            https://bookmorehq-website.vercel.app/api/automation/hourly
