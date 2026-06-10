@@ -1,51 +1,103 @@
 "use client";
 
+import {
+  BarChart3,
+  Bot,
+  Check,
+  Globe2,
+  Megaphone,
+  MessagesSquare,
+  Search,
+  Star,
+} from "lucide-react";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
 const services = [
   {
-    title: "Cold Email Infrastructure",
-    desc: "Custom domains, authenticated accounts, and deliverability optimization that ensures your emails hit the inbox.",
-    icon: (
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-        <rect x="4" y="10" width="32" height="22" rx="3" stroke="#3B82F6" strokeWidth="2" />
-        <path d="M4 13l16 10 16-10" stroke="#3B82F6" strokeWidth="2" strokeLinecap="round" />
-      </svg>
-    ),
+    title: "AI Receptionist",
+    label: "Lead capture",
+    desc: "A custom voice agent that answers inbound calls, handles common questions, qualifies the opportunity, routes urgent callers, captures appointment requests, and sends structured call data into your operation.",
+    includes: [
+      "Dedicated business number and custom greeting",
+      "Call qualification, transfers, recordings, and summaries",
+      "Business-hours and after-hours call handling",
+    ],
+    icon: Bot,
+    accent: "text-[#60a5fa] bg-[#172554]",
   },
   {
-    title: "Lead Generation Systems",
-    desc: "AI-powered prospect sourcing that finds your ideal customers across multiple data sources.",
-    icon: (
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-        <circle cx="20" cy="20" r="14" stroke="#3B82F6" strokeWidth="2" />
-        <circle cx="20" cy="20" r="8" stroke="#3B82F6" strokeWidth="2" />
-        <circle cx="20" cy="20" r="2" fill="#3B82F6" />
-        <path d="M20 6v4M20 30v4M6 20h4M30 20h4" stroke="#3B82F6" strokeWidth="2" strokeLinecap="round" />
-      </svg>
-    ),
+    title: "Outbound Growth",
+    label: "Demand creation",
+    desc: "A managed prospecting engine built to put your offer in front of targeted businesses and move interested replies toward a scheduled sales conversation.",
+    includes: [
+      "Targeted lead sourcing and list building",
+      "Cold email infrastructure and multi-step campaigns",
+      "Reply handling, appointment setting, and reporting",
+    ],
+    icon: Search,
+    accent: "text-[#fbbf24] bg-[#422006]",
   },
   {
-    title: "Campaign Management",
-    desc: "Multi-step sequences with smart follow-ups, A/B testing, and real-time optimization.",
-    icon: (
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-        <path d="M10 30l8-12 6 4 8-14" stroke="#3B82F6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M28 8h4v4" stroke="#3B82F6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
+    title: "Website Conversion",
+    label: "Digital storefront",
+    desc: "Professional websites and landing pages designed around trust, mobile usability, clear service information, and simple actions that turn visitors into calls and form submissions.",
+    includes: [
+      "Custom mobile-friendly website design",
+      "Service pages, reviews, FAQs, forms, and click-to-call",
+      "Local SEO foundations, launch, and edit support",
+    ],
+    icon: Globe2,
+    accent: "text-[#34d399] bg-[#052e2b]",
   },
   {
-    title: "CRM & Automation",
-    desc: "Automated reply handling, appointment booking, and pipeline management — all hands-free.",
-    icon: (
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-        <circle cx="20" cy="20" r="14" stroke="#3B82F6" strokeWidth="2" />
-        <path d="M20 12v8l5 5" stroke="#3B82F6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M14 6l-2-2M26 6l2-2" stroke="#3B82F6" strokeWidth="2" strokeLinecap="round" />
-      </svg>
-    ),
+    title: "AI Follow-Up",
+    label: "Lead recovery",
+    desc: "Automated follow-up that keeps new leads, open estimates, no-shows, and old contacts from disappearing because nobody had time to call or text again.",
+    includes: [
+      "Missed-lead and estimate follow-up sequences",
+      "No-show recovery and old-database reactivation",
+      "Segmented SMS and email nurture campaigns",
+    ],
+    icon: MessagesSquare,
+    accent: "text-[#c084fc] bg-[#2e1065]",
+  },
+  {
+    title: "Local Authority",
+    label: "Trust and reputation",
+    desc: "A local presence system that helps prospects find stronger proof, better reviews, and more complete business information when they compare you with competitors.",
+    includes: [
+      "Google Business Profile optimization",
+      "Review requests and testimonial capture",
+      "Local trust content and reputation reporting",
+    ],
+    icon: Star,
+    accent: "text-[#fb7185] bg-[#4c0519]",
+  },
+  {
+    title: "Paid Growth",
+    label: "Scalable acquisition",
+    desc: "Managed paid campaigns for businesses ready to purchase demand, with tracking designed to connect ad activity to calls, leads, and booked opportunities.",
+    includes: [
+      "Google Ads or Local Services Ads management",
+      "Retargeting, landing-page guidance, and testing",
+      "Call tracking, conversion reporting, and optimization",
+    ],
+    icon: Megaphone,
+    accent: "text-[#fb923c] bg-[#431407]",
+  },
+  {
+    title: "BookMoreHQ Growth OS",
+    label: "Unified operations",
+    desc: "The complete system combines demand generation, lead capture, conversion, follow-up, reputation, and reporting into one managed growth operation.",
+    includes: [
+      "Combined service stack built around your bottlenecks",
+      "Central sales, client, payment, and performance dashboard",
+      "Multi-location routing, attribution, and growth reporting",
+    ],
+    icon: BarChart3,
+    accent: "text-[#67e8f9] bg-[#083344]",
+    featured: true,
   },
 ];
 
@@ -54,38 +106,72 @@ export default function Services() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="services" className="bg-[#0F172A] py-24">
+    <section id="services" className="bg-[#0f151f] py-24">
       <div className="mx-auto max-w-7xl px-6">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="max-w-3xl"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-white">
-            What We Build For You
+          <p className="text-sm font-semibold uppercase text-[#60a5fa]">
+            The BookMoreHQ service stack
+          </p>
+          <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
+            Every system a growing service business needs
           </h2>
+          <p className="mt-5 text-base leading-7 text-[#9cacc1]">
+            Start with the bottleneck costing you the most opportunities. As
+            the business grows, each layer can connect into a larger system
+            without rebuilding everything from scratch.
+          </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          {services.map((service, i) => (
-            <motion.div
-              key={service.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="group rounded-xl border border-[#1F2937] bg-[#0B0F14] p-6 transition-all duration-300 hover:border-[#3B82F6] hover:shadow-[0_0_30px_rgba(59,130,246,0.12)]"
-            >
-              <div className="mb-4">{service.icon}</div>
-              <h3 className="text-lg font-semibold text-white mb-3">
-                {service.title}
-              </h3>
-              <p className="text-sm text-[#94A3B8] leading-relaxed">
-                {service.desc}
-              </p>
-            </motion.div>
-          ))}
+        <div className="mt-12 grid gap-5 md:grid-cols-2">
+          {services.map((service, index) => {
+            const Icon = service.icon;
+            return (
+              <motion.article
+                key={service.title}
+                initial={{ opacity: 0, y: 24 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.45, delay: index * 0.06 }}
+                className={`rounded-lg border p-6 ${
+                  service.featured
+                    ? "border-[#2563eb] bg-[#101d34] md:col-span-2"
+                    : "border-[#273449] bg-[#0b111a]"
+                }`}
+              >
+                <div className={service.featured ? "lg:grid lg:grid-cols-[0.9fr_1.1fr] lg:gap-12" : ""}>
+                  <div>
+                    <div className="flex items-start justify-between gap-4">
+                      <span className={`grid h-11 w-11 place-items-center rounded-md ${service.accent}`}>
+                        <Icon size={21} />
+                      </span>
+                      <span className="rounded-md border border-[#344258] px-2 py-1 text-[10px] font-semibold uppercase text-[#91a1b7]">
+                        {service.label}
+                      </span>
+                    </div>
+                    <h3 className="mt-5 text-xl font-semibold text-white">
+                      {service.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-6 text-[#9cacc1]">
+                      {service.desc}
+                    </p>
+                  </div>
+                  <ul className={`mt-5 space-y-3 border-t border-[#273449] pt-5 ${service.featured ? "lg:mt-0 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-2" : ""}`}>
+                    {service.includes.map((item) => (
+                      <li key={item} className="flex gap-2.5 text-sm leading-5 text-[#d5dce6]">
+                        <Check size={16} className="mt-0.5 shrink-0 text-[#4ade80]" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.article>
+            );
+          })}
         </div>
       </div>
     </section>

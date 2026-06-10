@@ -9,13 +9,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "BookMore HQ — Outbound Systems That Generate Clients On Demand",
+  title: "BookMoreHQ | AI-Powered Growth Systems for Service Businesses",
   description:
-    "Infrastructure-driven outbound designed to create consistent, predictable lead flow. We build the systems, you close the deals.",
+    "AI receptionist, outbound growth, conversion websites, automated follow-up, local authority, paid acquisition, and one operating dashboard.",
   openGraph: {
-    title: "BookMore HQ — Outbound Systems That Generate Clients On Demand",
+    title: "BookMoreHQ | AI-Powered Growth Systems",
     description:
-      "Infrastructure-driven outbound designed to create consistent, predictable lead flow.",
+      "Systems that help service businesses capture leads, answer calls, follow up, book appointments, and track growth.",
     type: "website",
   },
 };
@@ -26,7 +26,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} antialiased`}>
+    <html
+      lang="en"
+      className={`${inter.variable} antialiased`}
+      data-scroll-behavior="smooth"
+    >
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>

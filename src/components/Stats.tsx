@@ -1,75 +1,50 @@
-"use client";
+import { BarChart3, Boxes, Clock3, Workflow } from "lucide-react";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
-
-interface StatItemProps {
-  end: number;
-  suffix: string;
-  label: string;
-  inView: boolean;
-}
-
-function StatItem({ end, suffix, label, inView }: StatItemProps) {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!inView) return;
-    let frame: number;
-    const duration = 2000;
-    const start = performance.now();
-
-    const animate = (now: number) => {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      // Ease out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(eased * end));
-      if (progress < 1) frame = requestAnimationFrame(animate);
-    };
-
-    frame = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(frame);
-  }, [inView, end]);
-
-  return (
-    <div className="text-center px-8 py-6">
-      <div className="text-4xl sm:text-5xl font-bold text-white">
-        {suffix === "/7" ? "24/7" : suffix === " Min" ? "<5 Min" : suffix === "✓" ? "✓" : count.toLocaleString()}
-        {suffix !== "/7" && suffix !== " Min" && suffix !== "✓" && suffix}
-      </div>
-      <div className="mt-2 text-sm text-[#94A3B8]">{label}</div>
-    </div>
-  );
-}
-
-const stats = [
-  { end: 4, suffix: "", label: "Outbound Channels" },
-  { end: 24, suffix: "/7", label: "Automation" },
-  { end: 5, suffix: " Min", label: "Response Time" },
-  { end: 0, suffix: "✓", label: "Clients Booked Daily" },
+const capabilities = [
+  {
+    value: "24/7",
+    label: "AI call coverage",
+    icon: Clock3,
+  },
+  {
+    value: "7",
+    label: "connected growth layers",
+    icon: Boxes,
+  },
+  {
+    value: "1",
+    label: "operating dashboard",
+    icon: BarChart3,
+  },
+  {
+    value: "End to end",
+    label: "lead-to-booking workflow",
+    icon: Workflow,
+  },
 ];
 
 export default function Stats() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
-    <section className="bg-[#0F172A] py-20">
-      <motion.div
-        ref={ref}
-        initial={{ opacity: 0, y: 20 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6 }}
-        className="mx-auto max-w-5xl px-6"
-      >
-        <div className="flex flex-col sm:flex-row justify-center items-center divide-y sm:divide-y-0 sm:divide-x divide-[#1F2937]">
-          {stats.map((s) => (
-            <StatItem key={s.label} {...s} inView={inView} />
-          ))}
-        </div>
-      </motion.div>
+    <section className="border-y border-[#202b3a] bg-[#101722]">
+      <div className="mx-auto grid max-w-7xl sm:grid-cols-2 lg:grid-cols-4">
+        {capabilities.map((item) => {
+          const Icon = item.icon;
+          return (
+            <div
+              key={item.label}
+              className="flex min-h-32 items-center gap-4 border-b border-[#202b3a] px-6 py-7 sm:border-r lg:border-b-0"
+            >
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-[#172554] text-[#60a5fa]">
+                <Icon size={19} />
+              </span>
+              <div>
+                <p className="text-xl font-bold text-white">{item.value}</p>
+                <p className="mt-1 text-xs text-[#93a3b8]">{item.label}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </section>
   );
 }
-// force rebuild

@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { label: "How It Works", href: "#how-it-works" },
   { label: "Services", href: "#services" },
-  { label: "Results", href: "#results" },
+  { label: "How It Works", href: "#how-it-works" },
+  { label: "Why BookMoreHQ", href: "#results" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -30,12 +32,17 @@ export default function Navbar() {
       }`}
     >
       <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
-        {/* Logo */}
         <a href="#" className="flex items-center gap-2">
-          <img src="/logo.svg" alt="BookMore HQ" className="h-8" />
+          <Image
+            src="/logo.svg"
+            alt="BookMore HQ"
+            width={160}
+            height={32}
+            className="h-8 w-auto"
+            priority
+          />
         </a>
 
-        {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <a
@@ -48,34 +55,22 @@ export default function Navbar() {
           ))}
           <a
             href="https://cal.com/austin-ellis-rvyav5"
-            className="ml-2 px-5 py-2.5 bg-[#3B82F6] text-white text-sm font-medium rounded-lg hover:bg-[#2563EB] transition-all duration-200 shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]"
+            className="ml-2 rounded-md bg-[#2563eb] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#1d4ed8]"
           >
-            Book a Call
+            Book a growth call
           </a>
         </div>
 
-        {/* Mobile hamburger */}
         <button
+          type="button"
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden flex flex-col gap-1.5 p-2"
+          className="grid h-10 w-10 place-items-center rounded-md border border-[#344258] text-white md:hidden"
           aria-label="Toggle menu"
         >
-          <motion.span
-            animate={mobileOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-            className="block w-6 h-0.5 bg-white"
-          />
-          <motion.span
-            animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
-            className="block w-6 h-0.5 bg-white"
-          />
-          <motion.span
-            animate={mobileOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-            className="block w-6 h-0.5 bg-white"
-          />
+          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -98,9 +93,9 @@ export default function Navbar() {
               <a
                 href="https://cal.com/austin-ellis-rvyav5"
                 onClick={() => setMobileOpen(false)}
-                className="inline-block w-full text-center px-5 py-2.5 bg-[#3B82F6] text-white font-medium rounded-lg"
+                className="inline-block w-full rounded-md bg-[#2563eb] px-5 py-2.5 text-center font-medium text-white"
               >
-                Book a Call
+                Book a growth call
               </a>
             </div>
           </motion.div>
