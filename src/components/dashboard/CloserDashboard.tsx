@@ -8,6 +8,7 @@ import {
   Copy,
   ExternalLink,
   Loader2,
+  PhoneCall,
   Plus,
   Target,
   Trash2,
@@ -34,8 +35,10 @@ import { useOperations } from "@/components/dashboard/useOperations";
 
 export default function CloserDashboard({
   closerName,
+  demoNumber,
 }: {
   closerName: string;
+  demoNumber: string;
 }) {
   const { data, loading, saving, error, runOperation } = useOperations();
   const [modalOpen, setModalOpen] = useState(false);
@@ -85,6 +88,20 @@ export default function CloserDashboard({
     setCopied(planId);
     window.setTimeout(() => setCopied(null), 1600);
   }
+
+  async function copyDemoScenario() {
+    await navigator.clipboard.writeText(
+      "My air conditioner is blowing warm air. I am in Nashville and would like someone tomorrow morning.",
+    );
+    setCopied("demo-scenario");
+    window.setTimeout(() => setCopied(null), 1600);
+  }
+
+  const demoPhoneHref = `tel:${demoNumber.replace(/[^\d+]/g, "")}`;
+  const demoPhoneDisplay = demoNumber.replace(
+    /^\+1(\d{3})(\d{3})(\d{4})$/,
+    "($1) $2-$3",
+  );
 
   return (
     <div className="mx-auto max-w-[1450px]">
@@ -180,6 +197,57 @@ export default function CloserDashboard({
             ))}
           </div>
         )}
+      </section>
+
+      <section className="mt-8 border-y border-[#dfe3e8] bg-white py-6">
+        <div className="grid gap-6 px-1 lg:grid-cols-[0.72fr_1fr] lg:items-center">
+          <div>
+            <p className="text-xs font-semibold uppercase text-[#155eef]">
+              Live sales demo
+            </p>
+            <h2 className="mt-1 text-xl font-semibold text-[#17202a]">
+              {demoPhoneDisplay}
+            </h2>
+            <p className="mt-2 text-sm text-[#667085]">
+              Let the prospect experience the receptionist before presenting
+              the recommended package.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <a
+                href={demoPhoneHref}
+                className="inline-flex h-10 items-center gap-2 rounded-md bg-[#155eef] px-4 text-sm font-semibold text-white hover:bg-[#004eeb]"
+              >
+                <PhoneCall size={16} />
+                Call demo
+              </a>
+              <button
+                type="button"
+                onClick={() => void copyDemoScenario()}
+                className="inline-flex h-10 items-center gap-2 rounded-md border border-[#cfd5dc] bg-white px-4 text-sm font-semibold text-[#344054] hover:border-[#98a2b3]"
+              >
+                {copied === "demo-scenario" ? (
+                  <Check size={16} />
+                ) : (
+                  <Copy size={16} />
+                )}
+                {copied === "demo-scenario" ? "Copied" : "Copy call scenario"}
+              </button>
+            </div>
+          </div>
+          <div className="border-l-2 border-[#155eef] pl-4">
+            <p className="text-xs font-semibold uppercase text-[#667085]">
+              Prospect scenario
+            </p>
+            <p className="mt-2 text-sm leading-6 text-[#344054]">
+              “My air conditioner is blowing warm air. I’m in Nashville and
+              would like someone tomorrow morning.”
+            </p>
+            <p className="mt-3 text-xs text-[#667085]">
+              Use the prospect’s real name and callback number. The demo will
+              capture the service address, urgency, and preferred time.
+            </p>
+          </div>
+        </div>
       </section>
 
       <section id="pipeline" className="mt-8">
