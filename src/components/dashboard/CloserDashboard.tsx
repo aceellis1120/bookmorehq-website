@@ -336,7 +336,7 @@ export default function CloserDashboard({
           action={
             <span className="inline-flex items-center gap-1.5 text-xs text-[#667085]">
               <PlayCircle size={15} />
-              2-minute overview
+              2-minute overview · AI narration
             </span>
           }
         />

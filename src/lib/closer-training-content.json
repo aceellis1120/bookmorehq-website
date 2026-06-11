@@ -1,0 +1,74 @@
+{
+  "voiceInstructions": "Speak like a confident, experienced sales trainer talking directly to a new team member. Sound warm, grounded, conversational, and naturally American. Use subtle changes in pace and emphasis. Pause briefly between ideas. Avoid a robotic cadence, exaggerated enthusiasm, and a polished radio-announcer voice. Keep the delivery clear and businesslike without sounding scripted.",
+  "slides": [
+    {
+      "eyebrow": "BOOKMOREHQ CLOSER TRAINING",
+      "title": ["What You Will", "Be Selling"],
+      "points": [
+        "A 24/7 AI receptionist for service businesses",
+        "Built to recover missed and after-hours calls"
+      ],
+      "narration": "Welcome to BookMoreHQ. You will be selling a twenty-four seven AI receptionist to service businesses such as HVAC, roofing, plumbing, electrical, landscaping, and similar companies. The offer is simple: help the business answer more calls, qualify more leads, and respond faster."
+    },
+    {
+      "eyebrow": "THE BUSINESS PROBLEM",
+      "title": ["Missed Calls", "Cost Real Jobs"],
+      "points": [
+        "Owners and technicians cannot answer every call",
+        "Voicemail and slow follow-up lose high-value leads",
+        "After-hours demand often goes to a competitor"
+      ],
+      "narration": "The problem is not that contractors need more software. The problem is that owners and technicians cannot answer every call. Calls hit voicemail, follow-up happens too late, and high-value customers call the next company. You are selling recovered opportunities and dependable coverage."
+    },
+    {
+      "eyebrow": "THE SOLUTION",
+      "title": ["One System That", "Answers And Qualifies"],
+      "points": [
+        "Answers with the client's business identity",
+        "Captures name, phone, address, service, and urgency",
+        "Routes urgent calls and sends structured lead alerts"
+      ],
+      "narration": "BookMoreHQ builds a receptionist around the client's services, hours, territory, tone, emergency rules, and approved answers. It captures the caller's name, callback number, address, requested service, urgency, and preferred time. Urgent calls can be routed, and the business receives a structured lead alert."
+    },
+    {
+      "eyebrow": "HOW YOU DEMONSTRATE IT",
+      "title": ["Let The Prospect", "Call It Live"],
+      "points": [
+        "Use the demo number in your dashboard",
+        "Give one realistic service scenario",
+        "Connect the result to missed-call revenue"
+      ],
+      "narration": "Do not over-explain the technology. Let the prospect call the live demo number from your dashboard. Give them a realistic service scenario, let the receptionist qualify the call, then show how the lead is captured. Connect that experience to the revenue they currently lose from missed calls."
+    },
+    {
+      "eyebrow": "PACKAGES AND COMMISSION",
+      "title": ["Recommend One", "Package"],
+      "points": [
+        "Starter: $3,000 today, then $1,000 monthly - earn $1,000",
+        "Growth: $4,000 today, then $1,500 monthly - earn $1,250",
+        "Scale: $5,500 today, then $2,500 monthly - earn $1,500"
+      ],
+      "narration": "Recommend the package that fits the business. Starter is three thousand dollars today, then one thousand monthly, and pays a one thousand dollar commission. Growth is four thousand today, then fifteen hundred monthly, and pays twelve fifty. Scale is fifty-five hundred today, then twenty-five hundred monthly, and pays fifteen hundred."
+    },
+    {
+      "eyebrow": "YOUR DAILY WORKFLOW",
+      "title": ["Call. Qualify.", "Demo. Close."],
+      "points": [
+        "Add qualified owners to your pipeline",
+        "Book meetings through your personal calendar link",
+        "Send your assigned checkout link while on the call"
+      ],
+      "narration": "Your workflow is call, qualify, demonstrate, and close. Add prospects to your pipeline. Use your personal BookMoreHQ booking link for follow-up meetings. When the owner is ready, send the package checkout link from your dashboard. Stay with them through payment and onboarding."
+    },
+    {
+      "eyebrow": "THE STANDARD",
+      "title": ["Sell Clearly.", "Never Overpromise."],
+      "points": [
+        "Do not guarantee revenue or booked jobs",
+        "Do not promise integrations that are not confirmed",
+        "Use the dashboard, follow up, and keep clean records"
+      ],
+      "narration": "Sell clearly and never overpromise. Do not guarantee revenue, booked jobs, or integrations that fulfillment has not confirmed. Use the approved script, keep your pipeline current, and follow up when you say you will. Your dashboard contains the demo, booking link, packages, checkout links, and commission tracking."
+    }
+  ]
+}

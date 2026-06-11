@@ -2,6 +2,7 @@ import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import OpenAI from "openai";
 import sharp from "sharp";
 
 const root = process.cwd();
@@ -9,85 +10,24 @@ const output = path.join(root, "public", "closer-training.mp4");
 const poster = path.join(root, "public", "closer-training-poster.jpg");
 const captions = path.join(root, "public", "closer-training.vtt");
 const work = fs.mkdtempSync(path.join(os.tmpdir(), "bookmorehq-video-"));
+const training = JSON.parse(
+  fs.readFileSync(
+    path.join(root, "src", "lib", "closer-training-content.json"),
+    "utf8",
+  ),
+);
+const envText = fs.existsSync(path.join(root, ".env.local"))
+  ? fs.readFileSync(path.join(root, ".env.local"), "utf8")
+  : "";
+const apiKey = envText.match(/^OPENAI_API_KEY=(.*)$/m)?.[1]?.trim();
+const audioDirectory = process.env.CLOSER_TRAINING_AUDIO_DIR;
 
-const slides = [
-  {
-    eyebrow: "BOOKMOREHQ CLOSER TRAINING",
-    title: ["What You Will", "Be Selling"],
-    points: [
-      "A 24/7 AI receptionist for service businesses",
-      "Built to recover missed and after-hours calls",
-    ],
-    narration:
-      "Welcome to BookMoreHQ. You will be selling a twenty-four seven AI receptionist to service businesses such as HVAC, roofing, plumbing, electrical, landscaping, and similar companies. The offer is simple: help the business answer more calls, qualify more leads, and respond faster.",
-  },
-  {
-    eyebrow: "THE BUSINESS PROBLEM",
-    title: ["Missed Calls", "Cost Real Jobs"],
-    points: [
-      "Owners and technicians cannot answer every call",
-      "Voicemail and slow follow-up lose high-value leads",
-      "After-hours demand often goes to a competitor",
-    ],
-    narration:
-      "The problem is not that contractors need more software. The problem is that owners and technicians cannot answer every call. Calls hit voicemail, follow-up happens too late, and high-value customers call the next company. You are selling recovered opportunities and dependable coverage.",
-  },
-  {
-    eyebrow: "THE SOLUTION",
-    title: ["One System That", "Answers And Qualifies"],
-    points: [
-      "Answers with the client's business identity",
-      "Captures name, phone, address, service, and urgency",
-      "Routes urgent calls and sends structured lead alerts",
-    ],
-    narration:
-      "BookMoreHQ builds a receptionist around the client's services, hours, territory, tone, emergency rules, and approved answers. It captures the caller's name, callback number, address, requested service, urgency, and preferred time. Urgent calls can be routed, and the business receives a structured lead alert.",
-  },
-  {
-    eyebrow: "HOW YOU DEMONSTRATE IT",
-    title: ["Let The Prospect", "Call It Live"],
-    points: [
-      "Use the demo number in your dashboard",
-      "Give one realistic service scenario",
-      "Connect the result to missed-call revenue",
-    ],
-    narration:
-      "Do not over-explain the technology. Let the prospect call the live demo number from your dashboard. Give them a realistic service scenario, let the receptionist qualify the call, then show how the lead is captured. Connect that experience to the revenue they currently lose from missed calls.",
-  },
-  {
-    eyebrow: "PACKAGES AND COMMISSION",
-    title: ["Recommend One", "Package"],
-    points: [
-      "Starter: $3,000 today, then $1,000 monthly - earn $1,000",
-      "Growth: $4,000 today, then $1,500 monthly - earn $1,250",
-      "Scale: $5,500 today, then $2,500 monthly - earn $1,500",
-    ],
-    narration:
-      "Recommend the package that fits the business. Starter is three thousand dollars today, then one thousand monthly, and pays a one thousand dollar commission. Growth is four thousand today, then fifteen hundred monthly, and pays twelve fifty. Scale is fifty-five hundred today, then twenty-five hundred monthly, and pays fifteen hundred.",
-  },
-  {
-    eyebrow: "YOUR DAILY WORKFLOW",
-    title: ["Call. Qualify.", "Demo. Close."],
-    points: [
-      "Add qualified owners to your pipeline",
-      "Book meetings through your personal calendar link",
-      "Send your assigned checkout link while on the call",
-    ],
-    narration:
-      "Your workflow is call, qualify, demonstrate, and close. Add prospects to your pipeline. Use your personal BookMoreHQ booking link for follow-up meetings. When the owner is ready, send the package checkout link from your dashboard. Stay with them through payment and onboarding.",
-  },
-  {
-    eyebrow: "THE STANDARD",
-    title: ["Sell Clearly.", "Never Overpromise."],
-    points: [
-      "Do not guarantee revenue or booked jobs",
-      "Do not promise integrations that are not confirmed",
-      "Use the dashboard, follow up, and keep clean records",
-    ],
-    narration:
-      "Sell clearly and never overpromise. Do not guarantee revenue, booked jobs, or integrations that fulfillment has not confirmed. Use the approved script, keep your pipeline current, and follow up when you say you will. Your dashboard contains the demo, booking link, packages, checkout links, and commission tracking.",
-  },
-];
+if (!apiKey && !audioDirectory) {
+  throw new Error("OPENAI_API_KEY is missing from .env.local.");
+}
+
+const openai = apiKey ? new OpenAI({ apiKey }) : null;
+const slides = training.slides;
 
 function escapeXml(value) {
   return value.replace(
@@ -156,6 +96,7 @@ function slideSvg(slide, index) {
       <text x="100" y="188" fill="#8fb4ff" font-family="sans-serif" font-size="19" font-weight="700">${escapeXml(slide.eyebrow)}</text>
       ${title}
       <text x="100" y="595" fill="#98a2b3" font-family="sans-serif" font-size="20">Closer launch system</text>
+      <text x="100" y="630" fill="#667085" font-family="sans-serif" font-size="15">AI-generated narration</text>
       <text x="1138" y="650" fill="#98a2b3" font-family="sans-serif" font-size="18">${index + 1} / ${slides.length}</text>
       ${points}
     </svg>`;
@@ -193,19 +134,22 @@ function timestamp(seconds) {
 for (const [index, slide] of slides.entries()) {
   const base = path.join(work, `slide-${index + 1}`);
   const png = `${base}.png`;
-  const audio = `${base}.aiff`;
+  const audio = `${base}.mp3`;
   const clip = `${base}.mp4`;
 
   await sharp(Buffer.from(slideSvg(slide, index))).png().toFile(png);
-  execFileSync("say", [
-    "-v",
-    "Daniel",
-    "-r",
-    "178",
-    "-o",
-    audio,
-    slide.narration,
-  ]);
+  if (audioDirectory) {
+    fs.copyFileSync(path.join(audioDirectory, `slide-${index + 1}.mp3`), audio);
+  } else {
+    const speech = await openai.audio.speech.create({
+      model: "gpt-4o-mini-tts",
+      voice: "cedar",
+      input: slide.narration,
+      instructions: training.voiceInstructions,
+      response_format: "mp3",
+    });
+    fs.writeFileSync(audio, Buffer.from(await speech.arrayBuffer()));
+  }
   const seconds = duration(audio) + 0.6;
   const fadeOut = Math.max(0, seconds - 0.45).toFixed(2);
   cues.push(
