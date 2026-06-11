@@ -98,11 +98,21 @@ export function buildInboundConfiguration(
       appointment_status: "string",
     },
     analysis_prompt:
-      compiled?.analysisPrompt ||
-      "Extract only details stated or clearly confirmed during the call. Use routine, priority, or emergency for urgency.",
+      [
+        compiled?.analysisPrompt,
+        "Extract only details stated or clearly confirmed during the call.",
+        "The urgency value must be exactly routine, priority, or emergency.",
+      ]
+        .filter(Boolean)
+        .join("\n"),
     summary_prompt:
-      compiled?.summaryPrompt ||
-      "Summarize the caller's request, urgency, contact details, appointment request, transfer result, and required next action.",
+      [
+        compiled?.summaryPrompt,
+        "Write a concise factual summary of the caller's request, urgency, contact details, appointment request, transfer result, and required next action.",
+        "Do not evaluate, grade, or describe the receptionist's behavior.",
+      ]
+        .filter(Boolean)
+        .join("\n"),
     metadata: {
       bookmorehq_onboarding_id: onboardingId,
       company: payload.companyName,

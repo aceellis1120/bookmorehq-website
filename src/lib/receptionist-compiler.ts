@@ -114,6 +114,8 @@ export async function compileReceptionistConfiguration(
       "Create a concise, natural phone-agent prompt personalized to the business, its requested tone, services, territory, hours, call goals, escalation rules, approved answers, and after-hours behavior.",
       "Only enable capabilities explicitly listed as true. Never imply an integration exists because the client named a calendar or CRM.",
       "The agent must ask one question at a time, avoid long speeches, confirm critical details, and never invent prices, diagnoses, warranties, availability, policies, or appointment confirmation.",
+      "The analysis prompt must classify urgency using exactly routine, priority, or emergency.",
+      "The summary prompt must produce a factual customer-lead summary and must never evaluate or describe the receptionist's behavior.",
       "Mark requiresReview true when information conflicts, emergency rules are unsafe or unclear, the greeting is unsuitable, the business requests an unavailable capability, or critical operating instructions are ambiguous.",
       "Write three to eight realistic acceptance-test scenarios.",
     ].join("\n"),
