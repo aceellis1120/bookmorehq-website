@@ -5,9 +5,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   BriefcaseBusiness,
+  CalendarDays,
   CircleDollarSign,
   CreditCard,
   Gauge,
+  GraduationCap,
   Headphones,
   LayoutDashboard,
   LogOut,
@@ -38,6 +40,8 @@ const ownerNavigation = [
 
 const closerNavigation = [
   { label: "Workspace", href: "/dashboard/closer", icon: LayoutDashboard },
+  { label: "Training", href: "/dashboard/closer#training", icon: GraduationCap },
+  { label: "My calendar", href: "/dashboard/closer#calendar", icon: CalendarDays },
   { label: "My pipeline", href: "/dashboard/closer#pipeline", icon: BriefcaseBusiness },
   { label: "Packages", href: "/dashboard/closer#packages", icon: Package },
 ];

@@ -2,6 +2,7 @@
 
 import {
   CalendarClock,
+  CalendarDays,
   Check,
   CircleDollarSign,
   Clock3,
@@ -9,6 +10,7 @@ import {
   ExternalLink,
   Loader2,
   PhoneCall,
+  PlayCircle,
   Plus,
   Target,
   Trash2,
@@ -36,9 +38,11 @@ import { useOperations } from "@/components/dashboard/useOperations";
 export default function CloserDashboard({
   closerName,
   demoNumber,
+  bookingSlug,
 }: {
   closerName: string;
   demoNumber: string;
+  bookingSlug: string;
 }) {
   const { data, loading, saving, error, runOperation } = useOperations();
   const [modalOpen, setModalOpen] = useState(false);
@@ -94,6 +98,14 @@ export default function CloserDashboard({
       "My air conditioner is blowing warm air. I am in Nashville and would like someone tomorrow morning.",
     );
     setCopied("demo-scenario");
+    window.setTimeout(() => setCopied(null), 1600);
+  }
+
+  async function copyBookingLink() {
+    await navigator.clipboard.writeText(
+      `${window.location.origin}/book/${bookingSlug}`,
+    );
+    setCopied("booking-link");
     window.setTimeout(() => setCopied(null), 1600);
   }
 
@@ -247,6 +259,103 @@ export default function CloserDashboard({
               capture the service address, urgency, and preferred time.
             </p>
           </div>
+        </div>
+      </section>
+
+      <section
+        id="calendar"
+        className="mt-8 grid gap-5 lg:grid-cols-[0.72fr_1fr]"
+      >
+        <div className="rounded-md border border-[#dfe3e8] bg-white p-5">
+          <div className="flex items-center gap-2">
+            <CalendarDays size={19} className="text-[#155eef]" />
+            <h2 className="font-semibold text-[#17202a]">
+              My demo calendar
+            </h2>
+          </div>
+          <p className="mt-2 text-sm leading-6 text-[#667085]">
+            Send your personal booking page to qualified owners. New meetings
+            appear automatically in your pipeline and next-action list.
+          </p>
+          <div className="mt-4 grid grid-cols-[1fr_40px] gap-2">
+            <button
+              type="button"
+              onClick={() => void copyBookingLink()}
+              className="inline-flex h-10 items-center justify-center gap-2 rounded-md bg-[#155eef] px-4 text-sm font-semibold text-white"
+            >
+              {copied === "booking-link" ? (
+                <Check size={16} />
+              ) : (
+                <Copy size={16} />
+              )}
+              {copied === "booking-link" ? "Copied" : "Copy booking link"}
+            </button>
+            <Link
+              href={`/book/${bookingSlug}`}
+              target="_blank"
+              className="grid h-10 w-10 place-items-center rounded-md border border-[#cfd5dc] text-[#344054]"
+              aria-label="Open booking page"
+            >
+              <ExternalLink size={16} />
+            </Link>
+          </div>
+        </div>
+
+        <div className="rounded-md border border-[#dfe3e8] bg-white p-5">
+          <p className="text-xs font-semibold uppercase text-[#155eef]">
+            Cold-call opener
+          </p>
+          <p className="mt-3 text-sm leading-6 text-[#344054]">
+            “Hey, is this the owner? My name is {closerName} with BookMoreHQ.
+            Quick reason for the call: we install a 24/7 AI receptionist for
+            service businesses so missed and after-hours calls turn into
+            qualified leads instead of voicemail. Are you the person who
+            handles incoming calls?”
+          </p>
+          <div className="mt-4 grid gap-3 border-t border-[#edf0f2] pt-4 text-sm text-[#475467] sm:grid-cols-3">
+            <p>
+              <strong className="block text-[#17202a]">Discover</strong>
+              Ask how missed calls are handled today.
+            </p>
+            <p>
+              <strong className="block text-[#17202a]">Demonstrate</strong>
+              Have them call the live number.
+            </p>
+            <p>
+              <strong className="block text-[#17202a]">Close</strong>
+              Recommend one package and send checkout.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="training" className="mt-8">
+        <SectionHeading
+          eyebrow="Training"
+          title="What you are selling"
+          action={
+            <span className="inline-flex items-center gap-1.5 text-xs text-[#667085]">
+              <PlayCircle size={15} />
+              2-minute overview
+            </span>
+          }
+        />
+        <div className="overflow-hidden rounded-md border border-[#dfe3e8] bg-[#101923]">
+          <video
+            controls
+            preload="metadata"
+            poster="/closer-training-poster.jpg"
+            className="aspect-video w-full"
+          >
+            <source src="/closer-training.mp4" type="video/mp4" />
+            <track
+              default
+              kind="captions"
+              src="/closer-training.vtt"
+              srcLang="en"
+              label="English"
+            />
+          </video>
         </div>
       </section>
 
